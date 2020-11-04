@@ -86,6 +86,8 @@ class AdEngine:
         #   print("LOOP VAL:")
         #   print(val)
 
+        summation = 0
+
         for key in self.util_map.keys():
           for subkey in self.util_map[key]:
             print("FUNCTION > EU > subkey: ")
@@ -95,6 +97,14 @@ class AdEngine:
             results = self.model.predict_proba({ 'Y': val, 'D': 0 })
             print("FUNCTION > EU > results:")
             print(results)
+            print(results[0])
+            print(results[1])
+            print(results[2])
+
+            for param in results[2].parameters[0]:
+              print("FUNCTION > EU > param: " + str(param))
+              summation += results[2].parameters[0][param]
+              print("FUNCTION > EU > summation: " + str(summation))
 
         # for 
 
@@ -116,11 +126,21 @@ class AdEngine:
 
 
 
-        action = self.dec_vars
-
-        self.eu(action, evidence)
+        actions = self.dec_vars
+        print("MEU > ACTION: " + str(actions))
 
         best_decisions, best_util = dict(), -math.inf
+
+        for action in actions:
+          result = self.eu(action, evidence)
+          if (result > best_util):
+            print("MEU > RESULT: " + str(actions))
+            best_util = result
+
+
+
+
+
         return (best_decisions, best_util)
 
 
