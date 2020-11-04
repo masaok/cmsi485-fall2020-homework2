@@ -82,9 +82,19 @@ class AdEngine:
 
         results = self.model.predict_proba({ 'D': 0 })
 
-        for val in self.var_vals[action]:
-          print("LOOP VAL:")
-          print(val)
+        # for val in self.var_vals[action]:
+        #   print("LOOP VAL:")
+        #   print(val)
+
+        for key in self.util_map.keys():
+          for subkey in self.util_map[key]:
+            print("FUNCTION > EU > subkey: ")
+            print(subkey)
+            val = self.util_map[key][subkey]
+            print("FUNCTION > EU > val: " + str(val))
+            results = self.model.predict_proba({ 'Y': val, 'D': 0 })
+            print("FUNCTION > EU > results:")
+            print(results)
 
         # for 
 
