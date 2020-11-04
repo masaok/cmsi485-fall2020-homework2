@@ -47,6 +47,7 @@ class AdEngine:
         self.model = BayesianNetwork.from_samples(X=data, algorithm='exact', state_names=data.columns)
         results = self.model.predict_proba({ 'X': 0, 'D': 0 })
 
+
         self.var_vals = dict()
 
         print("INIT > LOOP:")
@@ -69,11 +70,24 @@ class AdEngine:
 
     def eu(self, action, evidence):
         print("FUNCTION > EU... ")
+
+        print("FUNCTION > EU > action: ")
+        print(action)
+
+        print("FUNCTION > EU > evidence: ")
+        print(evidence)
+
         print("FUNCTION > EU > util_map: ")
         print(self.util_map)
 
+        results = self.model.predict_proba({ 'D': 0 })
+
+        for val in self.var_vals[action]:
+          print("LOOP VAL:")
+          print(val)
 
         # for 
+
 
     def meu(self, evidence):
         """
@@ -94,7 +108,7 @@ class AdEngine:
 
         action = self.dec_vars
 
-        eu(action, evidence)
+        self.eu(action, evidence)
 
         best_decisions, best_util = dict(), -math.inf
         return (best_decisions, best_util)
